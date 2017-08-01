@@ -1,0 +1,17 @@
+myShapes = [rect 400 400 |>filled lightGrey
+            ,leftpart
+             ]
+
+leftpart = group [
+                    polygon [(-60, -25), (-40, -25), (0, 25), (-20, 25)]
+                     |>filled black
+                    ,roundedRect 35 15 5
+                     |>filled black
+                     |>move (-27, -17.5)
+                    ,botcurve
+                     |>rotate (degrees 180)
+                     |>move (-38, -22)
+                 ]
+                 
+botcurve = curve (-30, -15) [Pull (-30,-5) (-10, -5)]
+                 |>filled black
