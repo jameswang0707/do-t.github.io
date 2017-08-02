@@ -1,18 +1,19 @@
 myShapes model = [ rect 400 400 |>filled lightGrey
                    , leftpart
+                     |> move (1-abs(10 * sin(model.time)), abs(10 * sin(model.time)))
                    , rightpart
                      |> rotate(degrees 180)
+                     |> move (abs(10 * sin(model.time)), 1-abs(10 * sin(model.time)))
                    , middlepart
-                   , circle 10
-                     |> filled pink
-                     |> rotate model.time
-                     |> scale(abs(sin(model.time)))
+                     |> scale(1-abs(sin(model.time)))
+                     |> rotate(degrees (45 * model.time))
                  ]
 
 type Msg = Tick Float GetKeyState
 
 update msg model = case msg of
                      Tick t _ -> { time = t }
+
 
 init = { time = 0 }
 
@@ -26,6 +27,9 @@ leftpart = group [
                      |>filled black
                      |>scale 0.65
                      |>move (-15, 1)
+                    , curve (-43, 0) [Pull (-10, 0) (0, 10), Pull (0,0) (0,0)]
+                     |>filled black
+                     |>move (-14.5, -14)
                  ]
 rightpart = group [
                     polygon [(-65, -25), (-45, -25), (-5, 25), (-25, 25)]
@@ -37,6 +41,9 @@ rightpart = group [
                      |>filled black
                      |>scale 0.65
                      |>move (-15, 1)
+                    , curve (-43, 0) [Pull (-10, 0) (0, 10), Pull (0,0) (0,0)]
+                     |>filled black
+                     |>move (-14.5, -14)
                  ]
                  
 middlepart = group [
@@ -51,12 +58,5 @@ middlepart = group [
                      |>scale 0.8
                      |>rotate (degrees 180)
                      |>move (-9, 12)
-                    , curve (-43, 0) [Pull (-10, 0) (0, 10), Pull (0,0) (0,0)]
-                     |>filled black
-                     |>move (-14.5, -14)
-                    , curve (-43, 0) [Pull (-10, 0) (0, 10), Pull (0,0) (0,0)]
-                     |>filled black
-                     |>rotate (degrees 180)
-                     |>move (14.5, 14)
                  ]
-                
+                 
