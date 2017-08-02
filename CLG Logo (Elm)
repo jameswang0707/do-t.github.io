@@ -6,7 +6,7 @@ myShapes model = [ rect 400 400 |>filled lightGrey
                      |> move (abs(10 * sin(model.time)), 1-abs(10 * sin(model.time)))
                    , middlepart
                      |> scale(1-abs(sin(model.time)))
-                     |> rotate(degrees (45 * model.time))
+                     |> rotate(degrees (360 * model.time))
                  ]
 
 type Msg = Tick Float GetKeyState
@@ -59,4 +59,4 @@ middlepart = group [
                      |>rotate (degrees 180)
                      |>move (-9, 12)
                  ]
-                 
+                
