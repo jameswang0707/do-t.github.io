@@ -1,0 +1,62 @@
+myShapes model = [ rect 400 400 |>filled lightGrey
+                   , leftpart
+                   , rightpart
+                     |> rotate(degrees 180)
+                   , middlepart
+                   , circle 10
+                     |> filled pink
+                     |> rotate model.time
+                     |> scale(abs(sin(model.time)))
+                 ]
+
+type Msg = Tick Float GetKeyState
+
+update msg model = case msg of
+                     Tick t _ -> { time = t }
+
+init = { time = 0 }
+
+leftpart = group [
+                    polygon [(-65, -25), (-45, -25), (-5, 25), (-25, 25)]
+                     |>filled black
+                    , roundedRect 35 15 5
+                     |>filled black
+                     |>move (-32, -17.5)
+                    , curve (-25, 25) [Pull (5, 65) (25, 65), Pull (55, 65) (65, 45), Pull (25, 55) (5, 25)]
+                     |>filled black
+                     |>scale 0.65
+                     |>move (-15, 1)
+                 ]
+rightpart = group [
+                    polygon [(-65, -25), (-45, -25), (-5, 25), (-25, 25)]
+                     |>filled black
+                    , roundedRect 35 15 5
+                     |>filled black
+                     |>move (-32, -17.5)  
+                    , curve (-25, 25) [Pull (5, 65) (25, 65), Pull (55, 65) (65, 45), Pull (25, 55) (5, 25)]
+                     |>filled black
+                     |>scale 0.65
+                     |>move (-15, 1)
+                 ]
+                 
+middlepart = group [
+                    rect 12 30
+                     |>filled black
+                    , curve (-3.5,10) [Pull (-1, -30) (-40, -20), Pull (-20, -20) (-19, 0)]
+                     |>filled black
+                     |>scale 0.8
+                     |>move (9, -12)
+                    , curve (-3.5,10) [Pull (-1, -30) (-40, -20), Pull (-20, -20) (-19, 0)]
+                     |>filled black
+                     |>scale 0.8
+                     |>rotate (degrees 180)
+                     |>move (-9, 12)
+                    , curve (-43, 0) [Pull (-10, 0) (0, 10), Pull (0,0) (0,0)]
+                     |>filled black
+                     |>move (-14.5, -14)
+                    , curve (-43, 0) [Pull (-10, 0) (0, 10), Pull (0,0) (0,0)]
+                     |>filled black
+                     |>rotate (degrees 180)
+                     |>move (14.5, 14)
+                 ]
+                
