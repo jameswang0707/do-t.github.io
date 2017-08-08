@@ -1,0 +1,45 @@
+#encrypter.py
+# A variation of the scytale transposition cipher
+
+
+def main():
+    global message
+    message = input("What is your message: ")
+    encrypt_yn = input("Would you like me to encode this message? 'Yes' or 'No': ")
+    if encrypt_yn == "Yes": 
+        encrypt()
+        store_message_yn = input("Would you like me to store this message? 'Yes' or 'No': ")
+        if store_message_yn == "Yes":
+            f = open("encryption.txt", "w")
+            f.write(encrypted_code)
+            f.close()
+            
+    if encrypt_yn == "No":
+        print("Have a good day!")
+    
+
+def read():
+    f = open("encryption.txt", "r")
+    for line in f:
+        codes = list[line]
+        codes.append(line)
+    print(codes)
+    
+
+def encrypt():
+    msg = message
+    msg = list(filter(bool, msg))
+    print(msg)
+
+start = input("Would you like to write or read a message? 'W' or 'R': ")
+
+if start == "W":
+    main()
+    read_yn = input("Would you like to read your message? 'Yes' or 'No': ")
+    if read_yn == "Yes":
+        read()
+    if read_yn == "No":
+        print("Have a good day!")
+
+if start == "R":
+    read()
